@@ -8,7 +8,7 @@ const userGet = async (req, res = response) => {
 
   //El total y el user son posicionales, total va con count y find con users
   const [total, users] = await Promise.all([//Necesitamos que ambas consultas se hagan al mismo tiempo ya que una depende de la otra por lo tanto
-    Usuario.countDocuments(query),//Agregamos la promise.all para que las ejecute al mismo tiempo y reducir el tiempo de espera
+    Usuario.count(query),//Agregamos la promise.all para que las ejecute al mismo tiempo y reducir el tiempo de espera
     Usuario.find(query)
       .skip(Number(desde)) 
       .limit(Number(limite)),
