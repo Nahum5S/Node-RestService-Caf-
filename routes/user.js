@@ -1,8 +1,11 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
+
+const { validarCampos, validarJWT, esAdminRol, tieneRol } = require('../middlewares')
+
 const { userGet, userPut, userPost, userDelete } = require('../controllers/user');
 const { isRoleValid, existEmail, existUserId } = require('../helpers/db-validators');
-const { validarCampos } = require('../middlewares/validar-campos');
+
 
 const router = Router();
 
@@ -28,11 +31,15 @@ router.put('/:id',[
 ] ,userPut);
 
 router.delete('/:id',[
+   validarJWT,
+   tieneRol('ADMIN_ROLE','VENTAS_ROLE'),
    check('id', 'No es un ID válido').isMongoId(),
    check('id').custom( existUserId ),
    validarCampos
 ] ,userDelete);
 
+
+//Aquí si importa el orden de los middlewares ya que se ejecutan uno tras otro
 
 
 

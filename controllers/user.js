@@ -8,7 +8,7 @@ const userGet = async (req, res = response) => {
 
   //El total y el user son posicionales, total va con count y find con users
   const [total, users] = await Promise.all([//Necesitamos que ambas consultas se hagan al mismo tiempo ya que una depende de la otra por lo tanto
-    Usuario.count(query),//Agregamos la promise.all para que las ejecute al mismo tiempo y reducir el tiempo de espera
+    Usuario.countDocuments(query),//Agregamos la promise.all para que las ejecute al mismo tiempo y reducir el tiempo de espera
     Usuario.find(query)
       .skip(Number(desde)) 
       .limit(Number(limite)),
@@ -53,12 +53,9 @@ const userPut = async (req, res = response) => {
 const userDelete = async(req, res = response) => {
   const {id} = req.params;
 
-  //Fisicamente lo borramos
-  //const user = await Usuario.findByIdAndDelete( id );
+  const usuario = await Usuario.findByIdAndUpdate(id, {estado:false});
 
-  const user = await Usuario.findByIdAndUpdate(id, {estado:false});
-
-  res.json(user);
+  res.json(usuario);
 };
 
 module.exports = {

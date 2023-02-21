@@ -9,6 +9,7 @@ class Server {
     this.app = express(); //Le asignamos a una propiedad express, es como instanciar pero ahora usamos App
     this.port = process.env.PORT;
     this.usuariosPath = '/api/users';
+    this.authPath = '/api/auth';
     
 
     //Conectar a BD
@@ -40,6 +41,7 @@ class Server {
   }
 
   routes() {
+    this.app.use(this.authPath, require('../routes/auth'));
     this.app.use(this.usuariosPath, require('../routes/user'));
     
   }

@@ -1,4 +1,4 @@
-const { Schema, model} = require ('mongoose');
+const { Schema, model } = require ('mongoose');
 
 
 const UsuarioSchema = Schema({
@@ -35,7 +35,8 @@ const UsuarioSchema = Schema({
 });
 
 UsuarioSchema.methods.toJSON = function(){
-    const { __v, password, ...user} = this.toObject();
+    const { __v, password, _id, ...user} = this.toObject();
+    user.uid = _id;
     return user;
 }
 
