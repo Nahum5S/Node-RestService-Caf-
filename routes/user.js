@@ -15,7 +15,7 @@ router.get('/', userGet);
 
 router.post('/',[
    check('correo','El correo no es válido').isEmail(),
-   check('correo').custom(existEmail),
+   //check('correo').custom(existEmail),
    check('nombre','El nombre es obligatorio').not().isEmpty(),
    check('password','El password debe de contener más de 6 letras').isLength({min:6}),
    //check('rol','No es un rol válido').isIn(['ADMIN_ROLE','USER_ROLE']),

@@ -119,8 +119,6 @@ const actualizarImagenCloudinary = async (req, res = response) => {
 };
 
 
-
-
 const mostrarImagen = async(req, res = response) =>{
 
   const { id, coleccion } = req.params;
@@ -155,11 +153,8 @@ const mostrarImagen = async(req, res = response) =>{
   // Limpiar imagenes previas
 
   if ( modelo.img ){
-    //Borrar la imagen del servidor 
-    const pathImagen = path.join( __dirname, '../uploads', coleccion, modelo.img );
-    if( fs.existsSync( pathImagen ) ){
-      return res.sendFile( pathImagen );
-    }
+    //Traemos la url del cloud
+    return res.status(200).json(modelo.img);
   }
     //Si no tiene una imagen entonces mandamos una por defecto
     const pathImagen = path.join( __dirname, '../assets/no-image.jpg');
